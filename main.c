@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "vector.h"
+#include <stdlib.h>
 
 //--- Функция поиска наибольшей длины вектора в серии -----------------------------------------------------------------
 size_t searchLength(int ***arr, size_t arrRowsCount)

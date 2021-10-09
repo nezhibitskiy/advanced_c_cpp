@@ -6,6 +6,4 @@ set(CMAKE_C_STANDARD 11)
 include_directories(.)
 
 add_executable(advanced_c_c___homeworks
-        main.c
-        vector.c
-        vector.h string.cpp)
+        main.c)
