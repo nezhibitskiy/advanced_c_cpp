@@ -9,9 +9,9 @@ typedef enum ActionAnswer {
 } ActionAnswer_t;
 
 typedef struct Vector{
-    int** data;
-    size_t capacity;
-    size_t current;
+    int** data;         // Указатель на массив указателей
+    size_t capacity;    // Размер массива указателей
+    size_t current;     // Индекс текущего элемента в массиве
 } Vector_t;
 
 ActionAnswer_t vectorInit(Vector_t *vector);

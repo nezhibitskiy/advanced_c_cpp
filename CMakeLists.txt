@@ -8,4 +8,4 @@ include_directories(.)
 add_executable(advanced_c_c___homeworks
         main.c
         vector.c
-        vector.h)
+        vector.h string.cpp)
