@@ -71,7 +71,6 @@ int** createVector(size_t sizeOfArr)
 
 int main()
 {
-    size_t sizeOfBigArr = 10;
     int ***arr = malloc(sizeof(int**) * 10);
 
     size_t arrPoz = 0;
