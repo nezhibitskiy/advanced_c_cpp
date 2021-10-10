@@ -5,6 +5,7 @@ compiler:
 
 install:
  - sudo apt-get update
+ - sudo apt install lcov
  - sudo apt-get install -y valgrind
  - sudo apt-get install cmake -y
  - sudo apt-get install libgtest-dev -y
@@ -21,4 +22,5 @@ script:
  - cmake ..
  - make
  - ./hw_test
+ - lcov -t "hw-1" -o coverage.txt -c -d .
  - valgrind --tool=memcheck --leak-check=full ./hw_test
