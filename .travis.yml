@@ -3,16 +3,27 @@ language: c
 compiler:
  - gcc
 
-before_script:
+install:
+ - pwd
+ - sudo apt-get update
+ - sudo apt-get install -y valgrind
+ - sudo apt-get install cmake -y
+ - sudo apt-get install libgtest-dev -y
+ - cd /usr/src/gtest
+ - ls -lah
+ - sudo cmake CMakeLists.txt
+ - sudo make
+ - ls -lah
+ - sudo cp *.a /usr/lib
+ - cd /home/travis/build/nezhibitskiy/advanced_c_cpp
+
+script:
+ # once CMake has done its job we just build using make as usual
  # create a build folder for the out-of-source build
  - mkdir build
  # switch to build directory
  - cd build
- # run cmake; here we assume that the project's
- # top-level CMakeLists.txt is located at '..'
  - cmake ..
-
-script:
- # once CMake has done its job we just build using make as usual
  - make
- - ctest --output-on-failure
+ - ./hw_test
+ - valgrind --tool=memcheck --leak-check=full ./hw_test
