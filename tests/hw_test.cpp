@@ -6,9 +6,8 @@
 
 #define ARRAY_DATA 3
 
-extern "C"
-{
-    #include "pad_array_vectors.h"
+extern "C" {
+    #include "../project/include/pad_array_vectors.h"
 };
 
 // Функция добавления элемента в вектор
@@ -20,21 +19,19 @@ int *testAddElementToVector(int value) {
 
 // Функция создания вектора и его элементов
 int **createVector(size_t sizeOfArr) {
-    if (sizeOfArr > 0)
-    {
+    if (sizeOfArr > 0) {
         int **arr = new int*[sizeOfArr];
         for (size_t j = 0; j < (sizeOfArr - 1); j++) {
             arr[j] = testAddElementToVector(ARRAY_DATA);
         }
         arr[sizeOfArr - 1] = nullptr;
         return arr;
-    }
-    else
+    } else {
         return nullptr;
+    }
 }
 
-void testingFunction(const size_t sizeOfArr, const size_t* arrSizes)
-{
+void testingFunction(const size_t sizeOfArr, const size_t* arrSizes) {
     size_t biggestElement = 0;
     for (size_t i = 0; i < sizeOfArr; i++) {
         if (arrSizes[i] > biggestElement)
@@ -47,7 +44,7 @@ void testingFunction(const size_t sizeOfArr, const size_t* arrSizes)
     int ***returnArr = update_matrix(arr, sizeOfArr);
 
     for (size_t i = 0; i < sizeOfArr; i++) {
-        if (arrSizes[i] > 1){
+        if (arrSizes[i] > 1) {
             for (size_t j = 0; j < (arrSizes[i] - 1); j++)
                 delete arr[i][j];
         }
@@ -55,7 +52,7 @@ void testingFunction(const size_t sizeOfArr, const size_t* arrSizes)
     }
     delete[] arr;
 
-    EXPECT_FALSE( returnArr == nullptr);
+    EXPECT_FALSE(returnArr == nullptr);
     for (size_t j = 0; j < sizeOfArr; j++) {
         size_t i = 0;
         if (arrSizes[j] != 0) {
@@ -93,7 +90,7 @@ TEST(HW_TEST, Assert_2) {
 
 TEST(HW_TEST, Assert_3) {
     const size_t sizeOfArr = 15;
-    const size_t arrSizes[sizeOfArr] = {5, 1, 10,48, 35, 110, 11, 2, 35, 41, 47, 13, 41, 48, 56};
+    const size_t arrSizes[sizeOfArr] = {5, 1, 10, 48, 35, 110, 11, 2, 35, 41, 47, 13, 41, 48, 56};
     testingFunction(sizeOfArr, arrSizes);
 }
 TEST(HW_TEST, Assert_4) {
