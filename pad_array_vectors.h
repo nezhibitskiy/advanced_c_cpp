@@ -6,13 +6,14 @@
 #define ADVANCED_C_C___HOMEWORKS_PADARRAYVECTORS_H
 
 #include <stdlib.h>
+#include <string.h>
 
 // Функция поиска наибольшей длины вектора в серии
-size_t searchLength(int ***arr, size_t arrRowsCount);
+size_t search_length(int ***arr, size_t arr_rows_count);
 // Функция добавления элемента в вектор
 int *addElementToVector(int value);
 // Функция дополнения векторов принимаемого массива
-int ***updateMatrix(int ***arr, size_t arrRowsCount);
+int ***update_matrix(int ***input_arr, size_t arr_rows_count);
 
 
 

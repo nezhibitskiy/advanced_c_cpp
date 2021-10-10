@@ -4,7 +4,7 @@ project(advanced_c_c___homeworks C)
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-set(LIB_SOURCE_FILES padArrayVectors.c)
+set(LIB_SOURCE_FILES pad_array_vectors.c)
 add_library(padArrayVectors STATIC ${LIB_SOURCE_FILES})
 
 # add_executable(advanced_c_c___homeworks main.c)
