@@ -43,8 +43,8 @@ int ***updateMatrix(int ***arr, size_t arrRowsCount) {
     if (tmpSize < maxLength) {
       int **items = realloc(
           arr[i], sizeof(int *) * (maxLength + 1));  // Один дополниетльный
-                                                     // элемент предназначен
-                                                     // для ячейки с NULL
+      // элемент предназначен
+      // для ячейки с NULL
       if (items) {
         arr[i] = items;
       }
