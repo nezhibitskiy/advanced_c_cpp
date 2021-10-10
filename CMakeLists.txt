@@ -23,3 +23,4 @@ add_executable(hw_test hw_test.cpp)
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
 target_link_libraries(hw_test ${GTEST_LIBRARIES} padArrayVectors)
 
+add_test(mytest testExe --exe ./hw_test)
