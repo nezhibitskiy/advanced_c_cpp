@@ -9,6 +9,7 @@ install:
  - sudo apt-get install -y valgrind
  - sudo apt-get install cmake -y
  - sudo apt-get install libgtest-dev -y
+ - sudo apt-get install clang -y
  - cd /usr/src/gtest
  - sudo cmake CMakeLists.txt
  - sudo make
@@ -22,5 +23,8 @@ script:
  - cmake ..
  - make
  - ./hw_test
- - lcov -t "hw-1" -o coverage.txt -c -d .
+ - lcov -t "hw_test" -o coverage.txt -c -d ./
  - valgrind --tool=memcheck --leak-check=full ./hw_test
+
+after_script:
+ - bash <(curl -s https://codecov.io/bash)
