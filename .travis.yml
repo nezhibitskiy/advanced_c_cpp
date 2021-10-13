@@ -34,8 +34,8 @@ jobs:
      - make
   - name: "Tests"
     script:
-     - mkdir tests
-     - cd tests
+     - mkdir testing
+     - cd testing
      - cmake ..
      - make
      - ./hw_test
