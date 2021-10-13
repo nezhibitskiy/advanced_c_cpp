@@ -12,8 +12,7 @@ void errorFreeRawCPPArr(int ***arr,
                         const size_t array_size,
                         const size_t *vectors_size,
                         const size_t current_vector,
-                        const size_t current_index)
-{
+                        const size_t current_index) {
   if ((current_vector != 0 || current_index != 0) && vectors_size != NULL) {
     for (size_t j = current_index - 1; j + 1 > 0; j--) {
       delete arr[current_vector][j];

@@ -61,6 +61,7 @@ int main() {
     if (arr[i] == NULL) {
       printf("Error during allocating memory for vector\n");
       error_free_raw_arr(arr, array_size, vector_sizes, i, 0);
+      free(vector_sizes);
       return 1;
     }
     for (size_t j = 0; j < vector_sizes[i]; j++) {
@@ -71,6 +72,7 @@ int main() {
       if (arr[i][j] == NULL) {
         printf("Error during allocating memory for data\n");
         error_free_raw_arr(arr, array_size, vector_sizes, i, j);
+        free(vector_sizes);
         return 1;
       }
       *arr[i][j] = tmp_value;
@@ -90,6 +92,7 @@ int main() {
 
   if (returned_arr == NULL) {
     printf("Error of padding elements to vectors\n");
+    free(vector_sizes);
     return 2;
   }
 
