@@ -1,6 +1,6 @@
 // Copyright 2021 Nezhibitskiy Ilyas
 
-#include "../include/pad_array_vectors.h"
+#include "pad_array_vectors.h"
 
 static size_t search_length(int ***arr, size_t arr_rows_count) {
   size_t size = 1;

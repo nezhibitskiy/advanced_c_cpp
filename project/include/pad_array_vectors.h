@@ -4,7 +4,6 @@
 #define PROJECT_INCLUDE_PAD_ARRAY_VECTORS_H_
 
 #include <stdlib.h>
-#include <string.h>
 
 int ***update_matrix(int ***input_arr, size_t arr_rows_count);
 

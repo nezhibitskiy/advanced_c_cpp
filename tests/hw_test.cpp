@@ -7,7 +7,7 @@
 #define ARRAY_DATA 3
 
 extern "C" {
-#include "../project/include/pad_array_vectors.h"
+#include "pad_array_vectors.h"
 }
 
 // Функция добавления элемента в вектор

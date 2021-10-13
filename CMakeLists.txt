@@ -8,6 +8,8 @@ set(CMAKE_C_FLAGS  "${CMAKE_C_FLAGS} -Wall -Wpedantic -Werror --coverage")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wpedantic -Werror --coverage")
 
 set(LIB_SOURCE_FILES project/src/pad_array_vectors.c)
+set(LIB_INCLUDE_FILES project/include/)
+include_directories(${LIB_INCLUDE_FILES})
 add_library(padArrayVectors STATIC ${LIB_SOURCE_FILES})
 
 # add_executable(advanced_c_c___homeworks main.c)
