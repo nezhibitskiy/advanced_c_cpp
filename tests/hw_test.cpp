@@ -8,19 +8,43 @@ extern "C" {
 #include "pad_array_vectors.h"
 }
 
+void errorFreeRawCPPArr(int ***arr,
+                        const size_t array_size,
+                        const size_t *vectors_size,
+                        const size_t current_vector,
+                        const size_t current_index)
+{
+  if ((current_vector != 0 || current_index != 0) && vectors_size != NULL) {
+    for (size_t j = current_index - 1; j + 1 > 0; j--) {
+      delete arr[current_vector][j];
+    }
+    for (size_t i = current_vector - 1; i + 1 > 0; i--)
+      for (size_t j = vectors_size[i] - 1; j + 1 > 0; j--) {
+        delete arr[i][j];
+      }
+    for (size_t i = current_vector - 1; i + 1 > 0; i--) {
+      delete[] arr[i];
+    }
+  }
+  if (array_size != 0) delete[] arr;
+}
+
 // Функция добавления элемента в вектор
 int *testAddElementToVector(int value) {
   int *element = new int;
-  *element = value;
+  if (element)
+    *element = value;
   return element;
 }
 
 // Функция создания вектора и его элементов
-int **createVector(size_t sizeOfArr) {
+int **createVector(size_t sizeOfArr, size_t *currentIndex) {
   if (sizeOfArr > 0) {
     int **arr = new int *[sizeOfArr];
-    for (size_t j = 0; j < (sizeOfArr - 1); j++) {
-      arr[j] = testAddElementToVector(j);
+    if (!arr) return nullptr;
+    for (*currentIndex = 0; *currentIndex < (sizeOfArr - 1); (*currentIndex)++) {
+      arr[*currentIndex] = testAddElementToVector(*currentIndex);
+      if (!arr[*currentIndex]) return nullptr;
     }
     arr[sizeOfArr - 1] = nullptr;
     return arr;
@@ -36,11 +60,17 @@ void testingFunction(const size_t sizeOfArr, const size_t *arrSizes) {
   }
   int ***arr = nullptr;
   if (sizeOfArr != 0) {
-     arr = new int **[sizeOfArr];
-    for (size_t i = 0; i < sizeOfArr; i++) arr[i] = createVector(arrSizes[i]);
+    arr = new int**[sizeOfArr];
+    if (!arr) return;
+  }
+  for (size_t i = 0; i < sizeOfArr; i++) {
+    size_t currentIndex = 0;
+    arr[i] = createVector(arrSizes[i], &currentIndex);
+    if (arrSizes[i] > 0 && !arr[i])
+      errorFreeRawCPPArr(arr, sizeOfArr, arrSizes, i, currentIndex);
   }
 
-  int ***returnArr = update_matrix(arr, sizeOfArr);
+  int ***returnArr = pad_array_vectors(arr, sizeOfArr);
 
   if (sizeOfArr != 0) {
     for (size_t i = 0; i < sizeOfArr; i++) {
