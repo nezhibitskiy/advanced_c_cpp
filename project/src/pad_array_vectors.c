@@ -24,6 +24,8 @@ static int *alloc_and_init_vector_element(int value) {
 }
 
 int ***update_matrix(int ***input_arr, size_t arr_rows_count) {
+  if (input_arr == NULL) return NULL;
+
   size_t max_length = search_length(input_arr, arr_rows_count);
 
   int ***arr = malloc(sizeof(int **) * arr_rows_count);

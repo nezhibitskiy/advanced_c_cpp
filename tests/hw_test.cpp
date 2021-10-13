@@ -34,32 +34,41 @@ void testingFunction(const size_t sizeOfArr, const size_t *arrSizes) {
   for (size_t i = 0; i < sizeOfArr; i++) {
     if (arrSizes[i] > biggestElement) biggestElement = arrSizes[i];
   }
-  int ***arr = new int **[sizeOfArr];
-  for (size_t i = 0; i < sizeOfArr; i++) arr[i] = createVector(arrSizes[i]);
+  int ***arr = nullptr;
+  if (sizeOfArr != 0) {
+     arr = new int **[sizeOfArr];
+    for (size_t i = 0; i < sizeOfArr; i++) arr[i] = createVector(arrSizes[i]);
+  }
 
   int ***returnArr = update_matrix(arr, sizeOfArr);
 
-  for (size_t i = 0; i < sizeOfArr; i++) {
-    if (arrSizes[i] > 1) {
-      for (size_t j = 0; j < (arrSizes[i] - 1); j++) delete arr[i][j];
+  if (sizeOfArr != 0) {
+    for (size_t i = 0; i < sizeOfArr; i++) {
+      if (arrSizes[i] > 1) {
+        for (size_t j = 0; j < (arrSizes[i] - 1); j++) delete arr[i][j];
+      }
+      delete[] arr[i];
     }
-    delete[] arr[i];
-  }
-  delete[] arr;
+    delete[] arr;
 
-  EXPECT_FALSE(returnArr == nullptr);
-  for (size_t j = 0; j < sizeOfArr; j++) {
-    size_t i = 0;
-    if (arrSizes[j] != 0) {
-      for (; i < (arrSizes[j] - 1); i++)
-        EXPECT_EQ(*returnArr[j][i], i);
+    EXPECT_FALSE(returnArr == nullptr);
+    for (size_t j = 0; j < sizeOfArr; j++) {
+      size_t i = 0;
+      if (arrSizes[j] != 0) {
+        for (; i < (arrSizes[j] - 1); i++)
+          EXPECT_EQ(*returnArr[j][i], i);
+      }
+      for (; i < (biggestElement - 2); i++) EXPECT_EQ(*returnArr[j][i], 0);
+      if (i != (biggestElement - 1))
+        EXPECT_TRUE(returnArr[j][i + 1] == nullptr);
+      else
+        EXPECT_TRUE(returnArr[j][i] == nullptr);
     }
-    for (; i < (biggestElement - 2); i++) EXPECT_EQ(*returnArr[j][i], 0);
-    if (i != (biggestElement - 1))
-      EXPECT_TRUE(returnArr[j][i + 1] == nullptr);
-    else
-      EXPECT_TRUE(returnArr[j][i] == nullptr);
   }
+  else {
+    EXPECT_TRUE(returnArr == nullptr);
+  }
+
 
   for (size_t i = 0; i < sizeOfArr; i++) {
     for (size_t j = 0; j < (biggestElement - 1); j++) free(returnArr[i][j]);
@@ -92,6 +101,12 @@ TEST(HW_TEST, Assert_4) {
                                       1,  5,  1,  10, 48, 35, 110, 11, 2,
                                       35, 41, 47, 13, 41, 48, 56};
   testingFunction(sizeOfArr, arrSizes);
+}
+
+TEST(HW_TEST, Assert_5) {
+  const size_t sizeOfArr = 0;
+  const size_t arrSizes = 0;
+  testingFunction(sizeOfArr, &arrSizes);
 }
 
 int main(int argc, char **argv) {
