@@ -3,28 +3,56 @@ language: c
 compiler:
  - gcc
 
-install:
- - sudo apt-get update
- - sudo apt install lcov
- - sudo apt-get install -y valgrind
- - sudo apt-get install cmake -y
- - sudo apt-get install libgtest-dev -y
- - sudo apt-get install clang -y
+addons:
+ apt:
+  update: true
+  packages:
+   - cmake
+   - lcov
+   - valgrind
+   - libgtest-dev
+   - clang
+
+install: skip
+
+before_script:
  - cd /usr/src/gtest
  - sudo cmake CMakeLists.txt
  - sudo make
  - sudo cp *.a /usr/lib
  - cd /home/travis/build/nezhibitskiy/advanced_c_cpp
 
-script:
- - ./linters/run.sh
- - mkdir build
- - cd build
- - cmake ..
- - make
- - ./hw_test
- - lcov -t "hw_test" -o coverage.txt -c -d ./
- - valgrind --tool=memcheck --leak-check=full ./hw_test
-
-after_script:
- - bash <(curl -s https://codecov.io/bash)
+jobs:
+ include:
+  - name: "Linters"
+    script: ./linters/run.sh
+  - name: "Building"
+    script:
+     - mkdir build
+     - cd build
+     - cmake ..
+     - make
+  - name: "Tests"
+    script:
+     - mkdir tests
+     - cd tests
+     - cmake ..
+     - make
+     - ./hw_test
+  - name: "Coverage"
+    script:
+     - mkdir coverage
+     - cd coverage
+     - cmake ..
+     - make
+     - ./hw_test
+     - lcov -t "hw_test" -o coverage.txt -c -d ./
+     - bash <(curl -s https://codecov.io/bash)
+  - name: "Valgrind"
+    script:
+     - mkdir valgrind
+     - cd valgrind
+     - cmake ..
+     - make
+     - ./hw_test
+     - valgrind --tool=memcheck --leak-check=full ./hw_test
