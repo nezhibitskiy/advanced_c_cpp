@@ -64,8 +64,7 @@ void testingFunction(const size_t sizeOfArr, const size_t *arrSizes) {
       else
         EXPECT_TRUE(returnArr[j][i] == nullptr);
     }
-  }
-  else {
+  } else {
     EXPECT_TRUE(returnArr == nullptr);
   }
 
