@@ -24,7 +24,7 @@ void error_free_arr(int ***arr,
 }
 
 size_t search_biggest_length(int ***arr, size_t arr_rows_count) {
-  size_t size = 1;
+  size_t size = 0;
   for (size_t i = 0; i < arr_rows_count; i++) {
     if (arr[i] != NULL) {
       if (arr[i][0] != NULL) {

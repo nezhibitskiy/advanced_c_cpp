@@ -70,6 +70,8 @@ void testingFunction(const size_t sizeOfArr, const size_t *arrSizes) {
       errorFreeRawCPPArr(arr, sizeOfArr, arrSizes, i, currentIndex);
   }
 
+  EXPECT_EQ(search_biggest_length(arr, sizeOfArr), biggestElement);
+
   int ***returnArr = pad_array_vectors(arr, sizeOfArr);
 
   if (sizeOfArr != 0) {
@@ -136,6 +138,14 @@ TEST(HW_TEST, Assert_5) {
   const size_t sizeOfArr = 0;
   const size_t arrSizes = 0;
   testingFunction(sizeOfArr, &arrSizes);
+}
+
+TEST(HW_TEST, Assert_6) {
+  for (size_t j = 48; j < 76; j++) {
+    int* tmpInt = alloc_and_init_vector_element(j);
+    EXPECT_EQ(*tmpInt, j);
+    free(tmpInt);
+  }
 }
 
 int main(int argc, char **argv) {
