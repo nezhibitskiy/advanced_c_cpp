@@ -9,16 +9,16 @@ void error_free_raw_arr(int ***arr,
 {
   if ((current_vector != 0 || current_index != 0) && vectors_size != NULL) {
     for (size_t j = current_index - 1; j + 1 > 0; j--) {
-      printf("Free %lu data from %lu vector\n", j, current_vector);
+      printf("Free %zu data from %zu vector\n", j, current_vector);
       free(arr[current_vector][j]);
     }
     for (size_t i = current_vector - 1; i + 1 > 0; i--)
       for (size_t j = vectors_size[i] - 1; j + 1 > 0; j--) {
-        printf("Free %lu data from %lu vector\n", j, i);
+        printf("Free %zu data from %zu vector\n", j, i);
         free(arr[i][j]);
       }
     for (size_t i = current_vector - 1; i + 1 > 0; i--) {
-      printf("Free %lu vector\n", i);
+      printf("Free %zu vector\n", i);
       free(arr[i]);
     }
   }
@@ -31,7 +31,7 @@ int main() {
 
   while (array_size == 0) {
     printf("Write size of array of vectors: ");
-    scanf("%lu", &array_size);
+    scanf("%zu", &array_size);
     if (array_size == 0) printf("Write correct size of array\n");
   }
 
@@ -54,8 +54,8 @@ int main() {
   size_t biggest_vector = 0;
 
   for (size_t i = 0; i < array_size; i++) {
-    printf("Write size of %lu vector: ", i + 1);
-    scanf("%lu", &vector_sizes[i]);
+    printf("Write size of %zu vector: ", i + 1);
+    scanf("%zu", &vector_sizes[i]);
     if (vector_sizes[i] > biggest_vector) biggest_vector = vector_sizes[i];
     arr[i] = malloc(sizeof(int*) * (vector_sizes[i] + 1));
     if (arr[i] == NULL) {
@@ -64,7 +64,7 @@ int main() {
       return 1;
     }
     for (size_t j = 0; j < vector_sizes[i]; j++) {
-      printf("Write value of %lu item %lu vector: ", j + 1, i + 1);
+      printf("Write value of %zu item %zu vector: ", j + 1, i + 1);
       int tmp_value = 0;
       scanf("%d", &tmp_value);
       arr[i][j] = malloc(sizeof(int));
