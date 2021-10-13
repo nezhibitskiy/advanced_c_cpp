@@ -4,8 +4,6 @@
 
 #include <gtest/gtest.h>
 
-#define ARRAY_DATA 3
-
 extern "C" {
 #include "pad_array_vectors.h"
 }
@@ -22,7 +20,7 @@ int **createVector(size_t sizeOfArr) {
   if (sizeOfArr > 0) {
     int **arr = new int *[sizeOfArr];
     for (size_t j = 0; j < (sizeOfArr - 1); j++) {
-      arr[j] = testAddElementToVector(ARRAY_DATA);
+      arr[j] = testAddElementToVector(j);
     }
     arr[sizeOfArr - 1] = nullptr;
     return arr;
@@ -54,7 +52,7 @@ void testingFunction(const size_t sizeOfArr, const size_t *arrSizes) {
     size_t i = 0;
     if (arrSizes[j] != 0) {
       for (; i < (arrSizes[j] - 1); i++)
-        EXPECT_EQ(*returnArr[j][i], ARRAY_DATA);
+        EXPECT_EQ(*returnArr[j][i], i);
     }
     for (; i < (biggestElement - 2); i++) EXPECT_EQ(*returnArr[j][i], 0);
     if (i != (biggestElement - 1))
