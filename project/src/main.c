@@ -10,20 +10,20 @@ void error_free_raw_arr(int ***arr,
 {
   if ((current_vector != 0 || current_index != 0) && vectors_size != NULL) {
     for (size_t j = current_index - 1; j + 1 > 0; j--) {
-      frprintf("Free %zu data from %zu vector\n", j, current_vector);
+      fprintf(stderr,"Free %zu data from %zu vector\n", j, current_vector);
       free(arr[current_vector][j]);
     }
     for (size_t i = current_vector - 1; i + 1 > 0; i--)
       for (size_t j = vectors_size[i] - 1; j + 1 > 0; j--) {
-        frprintf("Free %zu data from %zu vector\n", j, i);
+        fprintf(stderr, "Free %zu data from %zu vector\n", j, i);
         free(arr[i][j]);
       }
     for (size_t i = current_vector - 1; i + 1 > 0; i--) {
-      frprintf("Free %zu vector\n", i);
+      fprintf(stderr,"Free %zu vector\n", i);
       free(arr[i]);
     }
   }
-  frprintf("Free array\n");
+  fprintf(stderr,"Free array\n");
   if (array_size != 0) free(arr);
 }
 
@@ -39,14 +39,14 @@ int main() {
   int ***arr = malloc(sizeof(int **) * array_size);
 
   if (arr == NULL) {
-    frprintf("Error during allocating memory for array of vectors");
+    fprintf(stderr,"Error during allocating memory for array of vectors");
     error_free_raw_arr(arr, array_size, NULL, 0, 0);
     return EXIT_FAILURE;
   }
 
   size_t *vector_sizes = malloc(sizeof(size_t) * array_size);
   if (vector_sizes == NULL) {
-    frprintf("Error during allocating memory for array of vector sizes\n");
+    fprintf(stderr, "Error during allocating memory for array of vector sizes\n");
     error_free_raw_arr(arr, array_size, NULL, 0, 0);
     return EXIT_FAILURE;
   }
@@ -60,7 +60,7 @@ int main() {
     if (vector_sizes[i] > biggest_vector) biggest_vector = vector_sizes[i];
     arr[i] = malloc(sizeof(int*) * (vector_sizes[i] + 1));
     if (arr[i] == NULL) {
-      frprintf("Error during allocating memory for vector\n");
+      fprintf(stderr, "Error during allocating memory for vector\n");
       error_free_raw_arr(arr, array_size, vector_sizes, i, 0);
       free(vector_sizes);
       return EXIT_FAILURE;
@@ -71,7 +71,7 @@ int main() {
       scanf("%d", &tmp_value);
       arr[i][j] = malloc(sizeof(int));
       if (arr[i][j] == NULL) {
-        frprintf("Error during allocating memory for data\n");
+        fprintf(stderr, "Error during allocating memory for data\n");
         error_free_raw_arr(arr, array_size, vector_sizes, i, j);
         free(vector_sizes);
         return EXIT_FAILURE;
@@ -92,7 +92,7 @@ int main() {
   free(arr);
 
   if (returned_arr == NULL) {
-    frprintf("Error of padding elements to vectors\n");
+    fprintf(stderr, "Error of padding elements to vectors\n");
     free(vector_sizes);
     return EXIT_FAILURE;
   }
