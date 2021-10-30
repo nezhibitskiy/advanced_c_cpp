@@ -28,23 +28,4 @@ int main() {
     free(data);
     scanf("%llu", &index);
     return 0;
-
-//    size_t size = 1;
-//    char *str;
-//    int ch;
-//    size_t len = 0;
-//    str = realloc(NULL, sizeof(*str)*size);//size is start size
-//    if(!str)return -1;
-//    while(EOF!=(ch=fgetc(file)) && ch != '\n'){
-//        str[len++] = (char)ch;
-//        if(len==size){
-//            str = realloc(str, sizeof(*str)*(size+=16));
-//            if(!str) return -1;
-//        }
-//    }
-//    realloc(str, sizeof(*str)*len);
-//
-//    printf("%s length: %llu", str, len);
-
-
 }
