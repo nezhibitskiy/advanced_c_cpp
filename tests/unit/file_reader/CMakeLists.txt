@@ -4,12 +4,10 @@ project(file_reader_test)
 
 add_executable(${PROJECT_NAME} ${SRCS})
 
-TARGET_LINK_LIBRARIES(${PROJECT_NAME}
-        file_reader
-        gtest_main
-#        ${GTEST_LIBRARIES}
-#        Threads::Threads
-        )
+target_link_libraries(${PROJECT_NAME}
+                      file_reader
+                      ${GTEST_LIBRARIES}
+                      gtest_main)
 
 add_test(NAME ${PROJECT_NAME}
         COMMAND ${PROJECT_NAME})
