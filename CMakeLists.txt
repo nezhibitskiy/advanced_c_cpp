@@ -15,11 +15,9 @@ add_subdirectory(src)
 
 if(test)
     add_subdirectory(tests/lib/googletest)
-
-    include_directories(lib/googletest/googletest/include)
+    include_directories(tests/lib/googletest/googletest/include)
 
     add_subdirectory(tests)
-
     enable_testing()
 
     find_package(Threads REQUIRED)
