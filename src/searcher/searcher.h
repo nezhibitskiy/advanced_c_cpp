@@ -8,6 +8,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-char *search_long_word(char* data, size_t data_size);
+char *search_long_word(const char* data, size_t data_size, size_t* max_len);
 
 #endif // TP_C_HW2_SEARCHER_H
