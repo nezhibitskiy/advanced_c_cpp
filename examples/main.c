@@ -2,19 +2,11 @@
 // Created by cross on 28.10.2021.
 //
 
-#include <stdlib.h> // EXIT_SUCCESS
+#include <stdlib.h>
 #include <pthread.h>
 #include <stdio.h>
 #include <time.h>
 #include <unistd.h>
-
-#define MAX_SLEEP_TIME 5
-
-void rand_sleep(char *whoami) {
-    int sleep_time = 1 + rand() % MAX_SLEEP_TIME;
-    printf("%s: sleeping for %d seconds...\n", whoami, sleep_time);
-    sleep(sleep_time);
-}
 
 typedef struct pthread_args {
     char* data;
@@ -80,35 +72,19 @@ char *search_long_word(pthread_args_t args) {
     return longest_str;
 }
 
-//int *thread_routine(int *arg) {
-//    int arg_local = *arg;
-//    int errflag = 0;
-//    // ...
-//    // detach from main process as a POSIX thread until the end
-////    errflag = pthread_detach(pthread_self());
-//    // check if pthread_detach() call was successful
-//    if (errflag != 0) {
-//        printf("Thread: caught error: %d\n", errflag);
-//    }
-//    rand_sleep("Thread");
-//    printf("Thread: hello!\n");
-//    // gracefully exit thread with void *value as a result
-//    return arg_local; // another variant: return NULL etc
-//}
-
 int main(int argc, char *argv[]) {
     srand(time(NULL));
-    int errflag = 0;
+    int errFlag = 0;
     pthread_t thread; // thread id
 
     // create and tun POSIX thread
     size_t data_size = 0;
     char* data = read_file(&data_size);
     pthread_args_t args = {data, data_size};
-    errflag = pthread_create(&thread, NULL, search_long_word, &args);
+    errFlag = pthread_create(&thread, NULL, search_long_word, &args);
     // check if thread_create call was successful
-    if (errflag != 0) {
-        printf("Main: caught error: %d\n", errflag);
+    if (errFlag != 0) {
+        printf("Main: caught error: %d\n", errFlag);
     }
     printf("Main: thread id: %llu\n", thread);
     void* res = NULL;

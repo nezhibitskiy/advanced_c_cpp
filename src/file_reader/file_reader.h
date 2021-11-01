@@ -10,5 +10,4 @@
 
 char* read_file_to_mem(const char* filepath, size_t* length_buf);
 
-
 #endif //HW2_FILE_READER_H

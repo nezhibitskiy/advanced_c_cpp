@@ -11,6 +11,8 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wpedantic -Werror --coverage")
 add_subdirectory(src)
 
 # if(test)
+set(PROJECT_PATH "${CMAKE_CURRENT_LIST_DIR}")
+
 add_subdirectory(tests)
 enable_testing()
 
