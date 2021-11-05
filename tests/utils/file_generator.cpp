@@ -41,7 +41,7 @@ int generateFile(size_t size, size_t reqMaxWordLength, std::string filename) {
       file << static_cast<char>(letter_number);
       i++;
     }
-    file << "\n";
+    file << " ";
   }
   file.close();
   return original_max_len;

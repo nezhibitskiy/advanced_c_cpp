@@ -6,5 +6,5 @@
 
 int main() {
   std::string filename = "text.txt";
-  return generateFile(100, 20, "text.txt");
+  return generateFile(100000000, 201, "text.txt");
 }

@@ -12,7 +12,7 @@ int main()
     return EXIT_FAILURE;
   }
 
-  filename = "texts/test.txt";
+  filename = "texts/text.txt";
 //  int scan_return = scanf("%s", filename);
 //  if (scan_return == EOF) {
 //    return EXIT_FAILURE;
@@ -24,7 +24,12 @@ int main()
     return EXIT_FAILURE;
   }
 
-  printf("Longest word in file %s\n", data);
+  printf("Longest word in file: ");
+
+  for (unsigned short i = 0; i < 201; i++) {
+    printf("%c", data[i]);
+  }
+  printf("\n");
 
   free(data);
 

@@ -10,4 +10,4 @@ else()
     target_link_libraries(main PUBLIC file_word_searcher)
 endif(parallel)
 
-file(COPY texts/test.txt DESTINATION texts)
+file(COPY texts/text.txt DESTINATION texts)

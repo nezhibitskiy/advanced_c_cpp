@@ -12,6 +12,12 @@ typedef struct pthread_args {
   size_t word_len;
 } pthread_args_t;
 
+void Pthread_args_init(pthread_args_t* args) {
+  args->data = NULL;
+  args->data_size = 0;
+  args->word_len = 0;
+}
+
 size_t search_closest_next_space(const char* data) {
   size_t i = 0;
   for (; data[i] != ' ' && data[i] != EOF; i++);
@@ -49,15 +55,12 @@ char* pthread_search_long_word(pthread_args_t* args) {
 char* file_long_word_search(const char* filename) {
   size_t data_length = 0;
   char* data = read_file_to_mem(filename, &data_length);
-
+  if (data == NULL) {
+    return NULL;
+  }
   size_t processors_count = sysconf(_SC_NPROCESSORS_ONLN);
 
   size_t* data_parts = count_data_parts(data, data_length, processors_count);
-
-//  printf("0 data part borders: start - 0, end - %lu \n", data_parts[0]);
-//  for (size_t i = 1; i < processors_count; i++) {
-//    printf("%lu data part borders: start - %lu, end - %lu \n", i, data_parts[i - 1], data_parts[i]);
-//  }
 
   size_t pthread_count = 1;
   for(size_t i = 1; i < processors_count; i++) {
@@ -65,10 +68,13 @@ char* file_long_word_search(const char* filename) {
       pthread_count++;
     }
   }
-//  printf("Pthread count: %lu\n", pthread_count);
 
   pthread_t* threads = malloc(sizeof(pthread_t) * pthread_count);
+
   pthread_args_t* threads_args = malloc(sizeof(pthread_args_t) * pthread_count);
+  for (size_t i = 0; i < pthread_count; i++) {
+    Pthread_args_init(&threads_args[i]);
+  }
 
 
   threads_args[0].data = data;
@@ -103,22 +109,23 @@ char* file_long_word_search(const char* filename) {
   size_t word_max_len = 0;
 
   if (success_pthread != 0) {
-    void **pthreads_res = malloc(sizeof(void *) * success_pthread);
+
+    void** pthreads_res = malloc(sizeof(void*) * success_pthread);
+//    while (pthread_join(threads[0], &pthreads_res[]) != 0);
     size_t joined_pthreads = 0;
     while (joined_pthreads != success_pthread) {
       joined_pthreads = 0;
       for (size_t i = 0; i < success_pthread; i++) {
-        if (pthread_join(threads[i], &pthreads_res[i]) != 0) {
+        if (pthread_join(threads[i], &(pthreads_res[i])) != 0) {
           joined_pthreads++;
         }
       }
     }
-    for (size_t i = 0; i < pthread_count; i++) {
-      printf("%s\n", (char *)pthreads_res[i]);
+    for (size_t i = 0; i < success_pthread; i++) {
       if (threads_args[i].word_len > word_max_len) {
         word_max_len = threads_args[i].word_len;
         longest_word = realloc(longest_word, sizeof(char) * word_max_len);
-        memcpy(longest_word, pthreads_res[i], word_max_len * sizeof(char));
+        memcpy(longest_word, (char*)pthreads_res[i], word_max_len * sizeof(char));
       }
     }
 
