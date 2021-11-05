@@ -10,6 +10,8 @@ char *search_long_word(const char* data, size_t data_size, size_t* max_len) {
     return NULL;
   }
 
+  *max_len = 0;
+
   char *longest_str = NULL;
 
   for (size_t i = 0; i < data_size; i++) {

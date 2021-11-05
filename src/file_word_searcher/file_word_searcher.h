@@ -8,6 +8,6 @@
 #include "file_reader.h"
 #include "searcher.h"
 
-char* file_long_word_search(const char* filename);
+char* file_long_word_search(const char* filename, size_t* word_length);
 
 #endif // TP_C_HW2_FILE_WORD_SEARCHER_H

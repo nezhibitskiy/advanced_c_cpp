@@ -52,7 +52,7 @@ char* pthread_search_long_word(pthread_args_t* args) {
   return longest_word;
 }
 
-char* file_long_word_search(const char* filename) {
+char* file_long_word_search(const char* filename, size_t* word_length) {
   size_t data_length = 0;
   char* data = read_file_to_mem(filename, &data_length);
   if (data == NULL) {
@@ -139,6 +139,8 @@ char* file_long_word_search(const char* filename) {
   free(threads);
   free(threads_args);
   free(data);
+
+  *word_length = word_max_len;
 
   return longest_word;
 }

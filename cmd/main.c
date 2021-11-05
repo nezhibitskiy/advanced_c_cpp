@@ -19,14 +19,15 @@ int main()
 //  }
 
   char* data = NULL;
-  data = file_long_word_search(filename);
+  size_t word_length = 0;
+  data = file_long_word_search(filename, &word_length);
   if (data == NULL) {
     return EXIT_FAILURE;
   }
 
   printf("Longest word in file: ");
 
-  for (unsigned short i = 0; i < 201; i++) {
+  for (size_t i = 0; i < word_length; i++) {
     printf("%c", data[i]);
   }
   printf("\n");
