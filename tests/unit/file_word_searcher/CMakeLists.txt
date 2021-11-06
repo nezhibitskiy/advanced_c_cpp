@@ -6,8 +6,7 @@ add_executable(${PROJECT_NAME} ${SRCS})
 
 target_link_libraries(${PROJECT_NAME}
         file_word_searcher
-        ${GTEST_LIBRARIES}
-        gtest_main)
+        ${GTEST_BOTH_LIBRARIES})
 
 add_test(NAME ${PROJECT_NAME}
         COMMAND ${PROJECT_NAME})
@@ -18,8 +17,7 @@ add_executable(${PROJECT_NAME} ${SRCS})
 
 target_link_libraries(${PROJECT_NAME}
         file_word_searcher_parallel
-        ${GTEST_LIBRARIES}
-        gtest_main)
+        ${GTEST_BOTH_LIBRARIES})
 
 add_test(NAME ${PROJECT_NAME}
         COMMAND ${PROJECT_NAME})

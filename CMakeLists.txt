@@ -17,11 +17,12 @@ if(test)
 
     set(PROJECT_PATH "${CMAKE_CURRENT_LIST_DIR}")
 
-    add_subdirectory(tests)
     enable_testing()
 
     find_package(GTest REQUIRED)
+    include_directories(${GTEST_INCLUDE_DIRS})
 
+    add_subdirectory(tests)
 endif(test)
 
 unset(test CACHE)
