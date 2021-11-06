@@ -1,6 +1,6 @@
 file(GLOB SRCS *.cpp)
 
-project(file_word_searcher_test)
+project(file_word_searcher_sync_test)
 
 add_executable(${PROJECT_NAME} ${SRCS})
 
@@ -11,5 +11,18 @@ target_link_libraries(${PROJECT_NAME}
 
 add_test(NAME ${PROJECT_NAME}
         COMMAND ${PROJECT_NAME})
+
+project(file_word_searcher_async_test)
+
+add_executable(${PROJECT_NAME} ${SRCS})
+
+target_link_libraries(${PROJECT_NAME}
+        file_word_searcher_parallel
+        ${GTEST_LIBRARIES}
+        gtest_main)
+
+add_test(NAME ${PROJECT_NAME}
+        COMMAND ${PROJECT_NAME})
+
 
 file(COPY texts/test.txt DESTINATION texts)

@@ -6,17 +6,17 @@
 
 int main()
 {
-//  printf("input name of source file: ");
+  printf("input name of source file: ");
   char* filename = malloc(sizeof(char) * 100);
   if (filename == NULL) {
     return EXIT_FAILURE;
   }
 
-  filename = "texts/text.txt";
-//  int scan_return = scanf("%s", filename);
-//  if (scan_return == EOF) {
-//    return EXIT_FAILURE;
-//  }
+//  filename = "texts/text.txt";
+  int scan_return = scanf("%s", filename);
+  if (scan_return == EOF) {
+    return EXIT_FAILURE;
+  }
 
   char* data = NULL;
   size_t word_length = 0;

@@ -27,17 +27,16 @@ int main()
   elapsed = (finish.tv_sec - start.tv_sec);
   elapsed += (finish.tv_nsec - start.tv_nsec) / 1000000000.0;
 
-  printf("time elapsed: %f\n", elapsed);
-
-  printf("Longest word in file: ");
-
-  for (size_t i = 0; i < word_length; i++) {
-    printf("%c", data[i]);
-  }
-  printf("\n");
+//  printf("Longest word in file: ");
+//
+//  for (size_t i = 0; i < word_length; i++) {
+//    printf("%c", data[i]);
+//  }
+//  printf("\n");
 
   free(data);
 
+  printf("%f\n", elapsed);
 
   return 0;
 }
