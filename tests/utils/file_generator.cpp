@@ -9,7 +9,7 @@
 // Sum: 26+26 = 52
 // Rand max 52
 
-int generateFile(size_t size, size_t reqMaxWordLength, std::string filename) {
+int generateFile(size_t size, size_t reqMaxWordLength, const std::string& filename) {
   size_t original_max_len = 0;
   std::ofstream file;
 

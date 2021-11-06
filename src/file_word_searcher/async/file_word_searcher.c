@@ -12,21 +12,24 @@ typedef struct pthread_args {
   size_t word_len;
 } pthread_args_t;
 
-void Pthread_args_init(pthread_args_t* args) {
+static void Pthread_args_init(pthread_args_t* args) {
   args->data = NULL;
   args->data_size = 0;
   args->word_len = 0;
 }
 
-size_t search_closest_next_space(const char* data) {
+static size_t search_closest_next_space(const char* data) {
   size_t i = 0;
   for (; data[i] != ' ' && data[i] != EOF; i++);
   return i;
 }
 
-size_t* count_data_parts(const char* data, size_t data_length,
+static size_t* count_data_parts(const char* data, size_t data_length,
                          size_t processors_count) {
   size_t* data_parts = malloc(sizeof(size_t) * processors_count);
+  if (data_parts == NULL) {
+    return NULL;
+  }
 
   size_t data_part_size = data_length / processors_count - 1;
   data_parts[0] = data_part_size +
@@ -46,7 +49,7 @@ size_t* count_data_parts(const char* data, size_t data_length,
   return data_parts;
 }
 
-char* pthread_search_long_word(pthread_args_t* args) {
+static char* pthread_search_long_word(pthread_args_t* args) {
   char* longest_word = search_long_word(args->data, args->data_size,
                                         &args->word_len);
   return longest_word;
@@ -58,9 +61,14 @@ char* file_long_word_search(const char* filename, size_t* word_length) {
   if (data == NULL) {
     return NULL;
   }
+
   size_t processors_count = sysconf(_SC_NPROCESSORS_ONLN);
 
   size_t* data_parts = count_data_parts(data, data_length, processors_count);
+  if (data_parts == NULL) {
+    free(data);
+    return NULL;
+  }
 
   size_t pthread_count = 1;
   for(size_t i = 1; i < processors_count; i++) {
@@ -77,6 +85,7 @@ char* file_long_word_search(const char* filename, size_t* word_length) {
   }
 
 
+  //--- PThreads creating ------------------------------------------------------
   threads_args[0].data = data;
   threads_args[0].data_size = data_parts[0];
 
@@ -104,14 +113,13 @@ char* file_long_word_search(const char* filename, size_t* word_length) {
       success_pthread++;
     }
   }
+  //--- PThreads creating ------------------------------------------------------
 
   char* longest_word = NULL;
   size_t word_max_len = 0;
 
   if (success_pthread != 0) {
-
     void** pthreads_res = malloc(sizeof(void*) * success_pthread);
-//    while (pthread_join(threads[0], &pthreads_res[]) != 0);
     size_t joined_pthreads = 0;
     while (joined_pthreads != success_pthread) {
       joined_pthreads = 0;
@@ -130,7 +138,6 @@ char* file_long_word_search(const char* filename, size_t* word_length) {
     }
 
     free(pthreads_res);
-
   } else {
     longest_word = search_long_word(data, data_length, &word_max_len);
   }

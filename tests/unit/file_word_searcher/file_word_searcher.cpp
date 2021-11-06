@@ -14,7 +14,8 @@ const char* openFilename = "texts/test.txt";
 //const char* notExistingFilename = "file.txt";
 
 TEST(FILE_WORD_SEARCHER, READ_FILE) {
-  char* data = file_long_word_search(openFilename);
+  size_t word_length = 0;
+  char* data = file_long_word_search(openFilename, &word_length);
   const char* real_data = "Word1";
   for (unsigned short i = 0; i < 5; i++) {
     EXPECT_EQ(data[i], real_data[i]);

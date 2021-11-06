@@ -5,6 +5,6 @@
 #include "file_generator.h"
 
 int main() {
-  std::string filename = "text.txt";
-  return generateFile(100000000, 201, "text.txt");
+  std::string filename = "./../stress_tests/texts/text.txt";
+  return generateFile(100000000, 221, filename);
 }
