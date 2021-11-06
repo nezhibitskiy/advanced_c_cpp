@@ -30,6 +30,19 @@ jobs:
         - cd build
         - cmake ..
         - make
+    - name: "Unit tests"
+      script:
+        - mkdir unit_tests
+        - cd unit_tests
+        - cmake ..
+        - make
+        - cd tests/unit/file_reader
+        - ./file_reader_test
+        - cd ../searcher
+        - ./searcher_test
+        - cd ../file_word_searcher
+        - ./file_word_searcher_sync_test
+        - ./file_word_searcher_async_test
     - name: "Valgrind"
       script:
         - mkdir valgrind
