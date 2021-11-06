@@ -1,0 +1,40 @@
+language: c
+
+compiler:
+  - gcc
+
+addons:
+  apt:
+    update: true
+    packages:
+      - cmake
+      - lcov
+      - valgrind
+      - libgtest-dev
+      - clang
+
+install: skip
+
+before_script:
+  - cd /usr/src/gtest
+  - sudo cmake CMakeLists.txt
+  - sudo make
+  - sudo cp *.a /usr/lib
+  - cd /home/travis/build/nezhibitskiy/advanced_c_cpp
+
+jobs:
+  include:
+    - name: "Building"
+      script:
+        - mkdir build
+        - cd build
+        - cmake ..
+        - make
+    - name: "Valgrind"
+      script:
+        - mkdir valgrind
+        - cd valgrind
+        - cmake ..
+        - make
+        - valgrind --tool=memcheck --leak-check=full ./tests/unit/file_word_searcher/file_word_searcher_sync_test
+        - valgrind --tool=memcheck --leak-check=full ./tests/unit/file_word_searcher/file_word_searcher_async_test
