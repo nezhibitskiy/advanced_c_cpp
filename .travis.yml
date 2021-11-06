@@ -37,5 +37,5 @@ jobs:
         - cmake ..
         - make
         - cd tests/unit/file_word_searcher
-        - valgrind --tool=memcheck --leak-check=full ./tests/unit/file_word_searcher/file_word_searcher_sync_test
-        - valgrind --tool=memcheck --leak-check=full ./tests/unit/file_word_searcher/file_word_searcher_async_test
+        - valgrind --tool=memcheck --leak-check=full ./file_word_searcher_sync_test
+        - valgrind --tool=memcheck --leak-check=full ./file_word_searcher_async_test
