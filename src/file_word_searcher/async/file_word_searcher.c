@@ -37,8 +37,7 @@ static size_t* count_data_parts(const char* data, size_t data_length,
       data_parts[i] = search_closest_next_space(data,
                                                 data_part_size + data_parts[i - 1],
                                                 data_length);
-    }
-    else {
+    } else {
       data_parts[i] = data_parts[i-1];
     }
   }
@@ -80,7 +79,7 @@ static size_t pthreads_create(pthread_t* threads,
     success_pthread++;
   }
 
-  for(size_t i = 1; i < pthread_count; i++) {
+  for (size_t i = 1; i < pthread_count; i++) {
     threads_args[i].data = &data[data_parts[i-1] + 1];
     threads_args[i].data_size = data_parts[i] - data_parts[i-1] - 1;
 
@@ -143,7 +142,7 @@ char* file_long_word_search(const char* filename, size_t* word_length) {
   }
 
   size_t pthread_count = 1;
-  for(size_t i = 1; i < processors_count; i++) {
+  for (size_t i = 1; i < processors_count; i++) {
     if (data_parts[i] > data_parts[i - 1]) {
       pthread_count++;
     }
@@ -182,8 +181,7 @@ char* file_long_word_search(const char* filename, size_t* word_length) {
                                   threads_args,
                                   success_pthread,
                                   &word_max_len);
-  }
-  else {
+  } else {
     longest_word = search_long_word(data, data_length, &word_max_len);
   }
 

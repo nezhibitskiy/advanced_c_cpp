@@ -4,8 +4,7 @@
 
 #include "file_word_searcher.h"
 
-int main()
-{
+int main() {
   printf("input name of source file: ");
   char* filename = malloc(sizeof(char) * 100);
   if (filename == NULL) {

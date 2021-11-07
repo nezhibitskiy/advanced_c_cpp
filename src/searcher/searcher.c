@@ -19,8 +19,8 @@ char *search_long_word(const char* data, size_t data_size, size_t* max_len) {
     size_t size = 1;
     size_t len = 0;
 
-    char* new_str = realloc(str, sizeof(*str)*size); //size is start size
-    if(!new_str) {
+    char* new_str = realloc(str, sizeof(*str)*size);
+    if (!new_str) {
       if (i > 0) {
         free(str);
         free(longest_str);
@@ -30,16 +30,16 @@ char *search_long_word(const char* data, size_t data_size, size_t* max_len) {
     str = new_str;
     new_str = NULL;
 
-    while(i < data_size) {
+    while (i < data_size) {
       if (data[i] == ' ') {
         break;
       }
       str[len++] = data[i];
-      if(len == size){
+      if (len == size) {
         char* tmp_str;
 
         tmp_str = realloc(str, sizeof(*str)*(size+=16));
-        if(!tmp_str) {
+        if (!tmp_str) {
           free(str);
           if (i > 0) {
             free(longest_str);

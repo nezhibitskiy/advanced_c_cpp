@@ -12,8 +12,10 @@ addons:
       - valgrind
       - libgtest-dev
       - clang
+      - python3-pip
 
-install: skip
+install:
+  - pip3 install --user cpplint
 
 before_script:
   - DEPS_DIR="${TRAVIS_BUILD_DIR}/deps"
@@ -62,6 +64,9 @@ jobs:
         - cd tests/unit/file_word_searcher
         - valgrind --tool=memcheck --leak-check=full ./file_word_searcher_sync_test
         - valgrind --tool=memcheck --leak-check=full ./file_word_searcher_async_test
+    - name: "CPPLint"
+      script:
+        - cpplint --extensions=c,h --filter=-runtime/references,-legal/copyright,-build/include_subdir,-whitespace/line_length,-readability/casting src/file_reader/* src/file_word_searcher/sync/* src/file_word_searcher/async/* src/searcher/* cmd/*
     - name: "Stress test"
       script:
         - bash stress_tests.sh
