@@ -11,7 +11,8 @@ addons:
       - lcov
       - valgrind
       - libgtest-dev
-      - clang
+      - clang-tidy
+      - clang-tools
 
 install: skip
 
@@ -55,3 +56,35 @@ jobs:
     - name: "Stress test"
       script:
         - bash stress_tests.sh
+    - name: "Sanitizer address"
+      script:
+        - mkdir build
+        - cd build
+        - cmake -Daddress=ON -Dparallel=OFF ..
+        - make
+        - cmake -Daddress=ON -Dparallel=ON ..
+        - make
+    - name: "Sanitizer memory"
+      script:
+        - mkdir build
+        - cd build
+        - cmake -Dmemory=ON -Dparallel=OFF ..
+        - make
+        - cmake -Dmemory=ON -Dparallel=ON ..
+        - make
+    - name: "Sanitizer undefined"
+      script:
+        - mkdir build
+        - cd build
+        - cmake -Dundefined=ON -Dparallel=OFF ..
+        - make
+        - cmake -Dundefined=ON -Dparallel=ON ..
+        - make
+    - name: "Sanitizer thread"
+      script:
+        - mkdir build
+        - cd build
+        - cmake -Dthread=ON -Dparallel=OFF ..
+        - make
+        - cmake -Dthread=ON -Dparallel=ON ..
+        - make

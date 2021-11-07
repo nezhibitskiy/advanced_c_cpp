@@ -15,6 +15,7 @@ int main()
 //  filename = "texts/text.txt";
   int scan_return = scanf("%s", filename);
   if (scan_return == EOF) {
+    free(filename);
     return EXIT_FAILURE;
   }
 
@@ -22,6 +23,7 @@ int main()
   size_t word_length = 0;
   data = file_long_word_search(filename, &word_length);
   if (data == NULL) {
+    free(filename);
     return EXIT_FAILURE;
   }
 
@@ -33,6 +35,7 @@ int main()
   printf("\n");
 
   free(data);
+  free(filename);
 
   return EXIT_SUCCESS;
 }

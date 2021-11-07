@@ -16,10 +16,12 @@ TEST(FILE_WORD_SEARCHER, READ_FILE) {
   size_t word_length = 0;
   char* data = file_long_word_search(openFilename, &word_length);
   EXPECT_TRUE(data != nullptr);
-  const char* real_data = "Word1";
-  for (unsigned short i = 0; i < 5; i++) {
-    EXPECT_EQ(data[i], real_data[i]);
+  if (data != nullptr) {
+    const char* real_data = "Word1";
+    for (unsigned short i = 0; i < 5; i++) {
+      EXPECT_EQ(data[i], real_data[i]);
+    }
+    free(data);
+    EXPECT_EQ(word_length, 5);
   }
-  free(data);
-  EXPECT_EQ(word_length, 5);
 }

@@ -151,12 +151,14 @@ char* file_long_word_search(const char* filename, size_t* word_length) {
 
   pthread_t* threads = malloc(sizeof(pthread_t) * pthread_count);
   if (threads == NULL) {
+    free(data_parts);
     free(data);
     return NULL;
   }
 
   pthread_args_t* threads_args = malloc(sizeof(pthread_args_t) * pthread_count);
   if (threads_args == NULL) {
+    free(data_parts);
     free(data);
     free(threads);
     return NULL;
