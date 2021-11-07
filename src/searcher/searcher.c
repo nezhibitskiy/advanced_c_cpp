@@ -20,7 +20,7 @@ char *search_long_word(const char *data, size_t data_size, size_t *max_len) {
     size_t len = 0;
 
     char *new_str = realloc(str, sizeof(*str) * size);
-    if (!new_str) {
+    if (new_str == NULL) {
       if (i > 0) {
         free(str);
         free(longest_str);
@@ -51,21 +51,23 @@ char *search_long_word(const char *data, size_t data_size, size_t *max_len) {
       i++;
     }
 
-    new_str = realloc(str, sizeof(*str) * len);
-    if (!new_str) {
-      free(str);
-      if (i > 0) {
-        free(longest_str);
+    if (len != 0) {
+      new_str = realloc(str, sizeof(*str) * len);
+      if (!new_str) {
+        free(str);
+        if (i > 0) {
+          free(longest_str);
+        }
+        return NULL;
       }
-      return NULL;
-    }
-    str = new_str;
-    new_str = NULL;
+      str = new_str;
+      new_str = NULL;
 
-    if (len > *max_len) {
-      longest_str = realloc(longest_str, sizeof(*str) * len);
-      memcpy(longest_str, str, len);
-      *max_len = len;
+      if (len > *max_len) {
+        longest_str = realloc(longest_str, sizeof(*str) * len);
+        memcpy(longest_str, str, len);
+        *max_len = len;
+      }
     }
   }
 

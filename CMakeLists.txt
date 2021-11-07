@@ -12,6 +12,7 @@ option(thread "Add thread sanitize" OFF)
 project(tp_c_hw2 C CXX)
 
 set(CMAKE_C_FLAGS  "${CMAKE_C_FLAGS} -Wall -Wpedantic -Werror --coverage -pthread")
+set(CMAKE_C_CLANG_TIDY clang-tidy; -checks=-*,clang-analyzer-*,-clang-analyzer-cplusplus*)
 
 add_subdirectory(src)
 add_subdirectory(cmd)

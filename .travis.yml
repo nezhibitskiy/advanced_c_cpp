@@ -12,8 +12,10 @@ addons:
       - valgrind
       - libgtest-dev
       - clang
+      - clang-tidy
       - python3-pip
       - cppcheck
+      - scan-build
 
 install:
   - pip3 install --user cpplint
@@ -34,12 +36,12 @@ before_script:
 
 jobs:
   include:
-#    - name: "Building"
-#      script:
-#        - mkdir build
-#        - cd build
-#        - cmake ..
-#        - make
+    - name: "Building"
+      script:
+        - mkdir build
+        - cd build
+        - scan-build cmake ..
+        - scan-build make
 #    - name: "Unit tests"
 #      script:
 #        - mkdir unit_tests
