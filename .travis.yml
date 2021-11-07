@@ -13,6 +13,7 @@ addons:
       - libgtest-dev
       - clang
       - python3-pip
+      - cppcheck
 
 install:
   - pip3 install --user cpplint
@@ -64,9 +65,10 @@ jobs:
         - cd tests/unit/file_word_searcher
         - valgrind --tool=memcheck --leak-check=full ./file_word_searcher_sync_test
         - valgrind --tool=memcheck --leak-check=full ./file_word_searcher_async_test
-    - name: "CPPLint"
+    - name: "CPPLint & CPPCheck"
       script:
         - cpplint --extensions=c,h --filter=-runtime/references,-legal/copyright,-build/include_subdir,-whitespace/line_length,-readability/casting src/file_reader/* src/file_word_searcher/sync/* src/file_word_searcher/async/* src/searcher/* cmd/*
+        - cppcheck -q --enable=all -I src/file_word_searcher -I src/file_reader -I src/searcher --suppress=missingIncludeSystem ./cmd
     - name: "Stress test"
       script:
         - bash stress_tests.sh

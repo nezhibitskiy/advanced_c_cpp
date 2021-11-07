@@ -22,19 +22,16 @@ char* read_file_to_mem(const char* filepath, size_t* length_buf) {
     }
 
     FILE* file = fopen(filepath, "rt");
-
     if (file == NULL) {
       return NULL;
     }
 
     *length_buf = get_file_length(file);
-
     if (*length_buf == 0) {
       return NULL;
     }
 
     char *data = malloc(sizeof(char) * *length_buf);
-
     if (!data) {
       return NULL;
     }
