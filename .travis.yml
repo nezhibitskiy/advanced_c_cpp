@@ -52,6 +52,6 @@ jobs:
         - cd tests/unit/file_word_searcher
         - valgrind --tool=memcheck --leak-check=full ./file_word_searcher_sync_test
         - valgrind --tool=memcheck --leak-check=full ./file_word_searcher_async_test
-- name: "Stress test"
-    script:
-      - bash stress_tests.sh
+    - name: "Stress test"
+      script:
+        - bash stress_tests.sh
