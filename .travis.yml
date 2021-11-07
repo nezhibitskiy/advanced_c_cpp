@@ -12,6 +12,8 @@ addons:
       - valgrind
       - libgtest-dev
       - clang
+    sources:
+      - kalakris-cmake
 
 install: skip
 
