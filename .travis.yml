@@ -41,67 +41,67 @@ jobs:
         - cd build
         - scan-build cmake ..
         - scan-build make
-#    - name: "Unit tests"
-#      script:
-#        - mkdir unit_tests
-#        - cd unit_tests
-#        - cmake ..
-#        - make
-#        - cd tests/unit/file_reader
-#        - ./file_reader_test
-#        - cd ../searcher
-#        - ./searcher_test
-#        - cd ../file_word_searcher
-#        - ./file_word_searcher_sync_test
-#        - ./file_word_searcher_async_test
-#        - lcov -t "file_word_searcher_async_test" -o coverage.txt -c -d ./
-#        - lcov -t "file_word_searcher_sync_test" -o coverage.txt -c -d ./
-#        - bash <(curl -s https://codecov.io/bash)
-#    - name: "Valgrind"
-#      script:
-#        - mkdir valgrind
-#        - cd valgrind
-#        - cmake ..
-#        - make
-#        - cd tests/unit/file_word_searcher
-#        - valgrind --tool=memcheck --leak-check=full ./file_word_searcher_sync_test
-#        - valgrind --tool=memcheck --leak-check=full ./file_word_searcher_async_test
-#    - name: "CPPLint & CPPCheck"
-#      script:
-#        - cpplint --extensions=c,h --filter=-runtime/references,-legal/copyright,-build/include_subdir,-whitespace/line_length,-readability/casting src/file_reader/* src/file_word_searcher/sync/* src/file_word_searcher/async/* src/searcher/* cmd/*
-#        - cppcheck -q --enable=all -I src/file_word_searcher -I src/file_reader -I src/searcher --suppress=missingIncludeSystem ./cmd
-#    - name: "Stress test"
-#      script:
-#        - bash stress_tests.sh
-#    - name: "Sanitizer address"
-#      script:
-#        - mkdir build
-#        - cd build
-#        - cmake -Daddress=ON -Dparallel=OFF ..
-#        - make
-#        - cmake -Daddress=ON -Dparallel=ON ..
-#        - make
-#    - name: "Sanitizer memory"
-#      script:
-#        - mkdir build
-#        - cd build
-#        - cmake -Dmemory=ON -Dparallel=OFF ..
-#        - make
-#        - cmake -Dmemory=ON -Dparallel=ON ..
-#        - make
-#    - name: "Sanitizer undefined"
-#      script:
-#        - mkdir build
-#        - cd build
-#        - cmake -Dundefined=ON -Dparallel=OFF ..
-#        - make
-#        - cmake -Dundefined=ON -Dparallel=ON ..
-#        - make
-#    - name: "Sanitizer thread"
-#      script:
-#        - mkdir build
-#        - cd build
-#        - cmake -Dthread=ON -Dparallel=OFF ..
-#        - make
-#        - cmake -Dthread=ON -Dparallel=ON ..
-#        - make
+    - name: "Unit tests"
+      script:
+        - mkdir unit_tests
+        - cd unit_tests
+        - cmake ..
+        - make
+        - cd tests/unit/file_reader
+        - ./file_reader_test
+        - cd ../searcher
+        - ./searcher_test
+        - cd ../file_word_searcher
+        - ./file_word_searcher_sync_test
+        - ./file_word_searcher_async_test
+        - lcov -t "file_word_searcher_async_test" -o coverage.txt -c -d ./
+        - lcov -t "file_word_searcher_sync_test" -o coverage.txt -c -d ./
+        - bash <(curl -s https://codecov.io/bash)
+    - name: "Valgrind"
+      script:
+        - mkdir valgrind
+        - cd valgrind
+        - cmake ..
+        - make
+        - cd tests/unit/file_word_searcher
+        - valgrind --tool=memcheck --leak-check=full ./file_word_searcher_sync_test
+        - valgrind --tool=memcheck --leak-check=full ./file_word_searcher_async_test
+    - name: "CPPLint & CPPCheck"
+      script:
+        - cpplint --extensions=c,h --filter=-runtime/references,-legal/copyright,-build/include_subdir,-whitespace/line_length,-readability/casting src/file_reader/* src/file_word_searcher/sync/* src/file_word_searcher/async/* src/searcher/* cmd/*
+        - cppcheck -q --enable=all -I src/file_word_searcher -I src/file_reader -I src/searcher --suppress=missingIncludeSystem ./cmd
+    - name: "Stress test"
+      script:
+        - bash stress_tests.sh
+    - name: "Sanitizer address"
+      script:
+        - mkdir build
+        - cd build
+        - cmake -Daddress=ON -Dparallel=OFF ..
+        - make
+        - cmake -Daddress=ON -Dparallel=ON ..
+        - make
+    - name: "Sanitizer memory"
+      script:
+        - mkdir build
+        - cd build
+        - cmake -Dmemory=ON -Dparallel=OFF ..
+        - make
+        - cmake -Dmemory=ON -Dparallel=ON ..
+        - make
+    - name: "Sanitizer undefined"
+      script:
+        - mkdir build
+        - cd build
+        - cmake -Dundefined=ON -Dparallel=OFF ..
+        - make
+        - cmake -Dundefined=ON -Dparallel=ON ..
+        - make
+    - name: "Sanitizer thread"
+      script:
+        - mkdir build
+        - cd build
+        - cmake -Dthread=ON -Dparallel=OFF ..
+        - make
+        - cmake -Dthread=ON -Dparallel=ON ..
+        - make
