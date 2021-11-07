@@ -11,8 +11,7 @@ addons:
       - lcov
       - valgrind
       - libgtest-dev
-      - clang-tidy
-      - clang-tools
+      - clang
 
 install: skip
 
