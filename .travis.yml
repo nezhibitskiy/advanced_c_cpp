@@ -15,7 +15,6 @@ addons:
       - clang-tidy
       - python3-pip
       - cppcheck
-      - scan-build
 
 install:
   - pip3 install --user cpplint
