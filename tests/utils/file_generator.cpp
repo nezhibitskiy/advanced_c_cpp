@@ -5,11 +5,8 @@
 #include "file_generator.h"
 #include <random>
 
-// char symbols: A-Z: 65-90 a-z: 97-122
-// Sum: 26+26 = 52
-// Rand max 52
-
-int generateFile(size_t size, size_t reqMaxWordLength, const std::string& filename) {
+int generateFile(size_t size, size_t reqMaxWordLength,
+                 const std::string &filename) {
   size_t original_max_len = 0;
   std::ofstream file;
 

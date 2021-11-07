@@ -5,7 +5,7 @@
 #include "searcher.h"
 #include <stdio.h>
 
-char *search_long_word(const char* data, size_t data_size, size_t* max_len) {
+char *search_long_word(const char *data, size_t data_size, size_t *max_len) {
   if (data == NULL || data_size == 0 || max_len == NULL) {
     return NULL;
   }
@@ -19,7 +19,7 @@ char *search_long_word(const char* data, size_t data_size, size_t* max_len) {
     size_t size = 1;
     size_t len = 0;
 
-    char* new_str = realloc(str, sizeof(*str)*size);
+    char *new_str = realloc(str, sizeof(*str) * size);
     if (!new_str) {
       if (i > 0) {
         free(str);
@@ -36,9 +36,9 @@ char *search_long_word(const char* data, size_t data_size, size_t* max_len) {
       }
       str[len++] = data[i];
       if (len == size) {
-        char* tmp_str;
+        char *tmp_str;
 
-        tmp_str = realloc(str, sizeof(*str)*(size+=16));
+        tmp_str = realloc(str, sizeof(*str) * (size += 16));
         if (!tmp_str) {
           free(str);
           if (i > 0) {
@@ -51,7 +51,7 @@ char *search_long_word(const char* data, size_t data_size, size_t* max_len) {
       i++;
     }
 
-    new_str = realloc(str, sizeof(*str)*len);
+    new_str = realloc(str, sizeof(*str) * len);
     if (!new_str) {
       free(str);
       if (i > 0) {
@@ -63,7 +63,7 @@ char *search_long_word(const char* data, size_t data_size, size_t* max_len) {
     new_str = NULL;
 
     if (len > *max_len) {
-      longest_str = realloc(longest_str, sizeof(*str)*len);
+      longest_str = realloc(longest_str, sizeof(*str) * len);
       memcpy(longest_str, str, len);
       *max_len = len;
     }

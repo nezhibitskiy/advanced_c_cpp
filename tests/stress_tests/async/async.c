@@ -8,11 +8,10 @@
 
 #include "file_word_searcher.h"
 
-const char* filename = "../texts/text.txt";
+const char *filename = "../texts/text.txt";
 
-int main()
-{
-  char* data = NULL;
+int main() {
+  char *data = NULL;
   size_t word_length = 0;
 
   struct timespec start, finish;
@@ -27,12 +26,12 @@ int main()
   elapsed = (finish.tv_sec - start.tv_sec);
   elapsed += (finish.tv_nsec - start.tv_nsec) / 1000000000.0;
 
-//  printf("Longest word in file: ");
-//
-//  for (size_t i = 0; i < word_length; i++) {
-//    printf("%c", data[i]);
-//  }
-//  printf("\n");
+  //  printf("Longest word in file: ");
+  //
+  //  for (size_t i = 0; i < word_length; i++) {
+  //    printf("%c", data[i]);
+  //  }
+  //  printf("\n");
 
   free(data);
 

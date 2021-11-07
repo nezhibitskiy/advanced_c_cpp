@@ -7,6 +7,7 @@
 
 #include <fstream>
 
-int generateFile(size_t size, size_t reqMaxWordLength, const std::string& filename);
+int generateFile(size_t size, size_t reqMaxWordLength,
+                 const std::string &filename);
 
 #endif // TP_C_HW2_FILE_GENERATOR_H

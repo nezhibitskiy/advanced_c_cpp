@@ -2,22 +2,21 @@
 // Created by cross on 30.10.2021.
 //
 
-#include <gtest/gtest.h>
 #include <fstream>
+#include <gtest/gtest.h>
 
 extern "C" {
 #include "file_reader.h"
 #include <stdlib.h>
 }
 
-const char* openFilename = "texts/test.txt";
-const char* notExistingFilename = "file.txt";
-
+const char *openFilename = "texts/test.txt";
+const char *notExistingFilename = "file.txt";
 
 TEST(READ_FILE_TO_MEM, READ_FILE) {
   size_t length = 0;
 
-  char* data = read_file_to_mem(openFilename, &length);
+  char *data = read_file_to_mem(openFilename, &length);
 
   std::ifstream file;
   file.open(openFilename);

@@ -28,7 +28,7 @@ TEST(SEARCHER, SMALL_DATA) {
   char data[] = "Word Word1 Word2";
   size_t max_len = 0;
 
-  char* receivedData = search_long_word(data, 16, &max_len);
+  char *receivedData = search_long_word(data, 16, &max_len);
   EXPECT_TRUE(receivedData);
   EXPECT_EQ(max_len, 5);
 
@@ -43,7 +43,7 @@ TEST(SEARCHER, ONE_WORD) {
   char data[] = "W";
   size_t max_len = 0;
 
-  char* receivedData = search_long_word(data, 1, &max_len);
+  char *receivedData = search_long_word(data, 1, &max_len);
   EXPECT_TRUE(receivedData);
   EXPECT_EQ(max_len, 1);
 

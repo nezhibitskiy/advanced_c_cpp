@@ -6,12 +6,12 @@
 
 int main() {
   printf("input name of source file: ");
-  char* filename = malloc(sizeof(char) * 100);
+  char *filename = malloc(sizeof(char) * 100);
   if (filename == NULL) {
     return EXIT_FAILURE;
   }
 
-//  filename = "texts/text.txt";
+  //  filename = "texts/text.txt";
   int scan_return = scanf("%100s", filename);
   if (scan_return == EOF) {
     free(filename);
@@ -19,7 +19,7 @@ int main() {
   }
 
   size_t word_length = 0;
-  char* data = file_long_word_search(filename, &word_length);
+  char *data = file_long_word_search(filename, &word_length);
   if (data == NULL) {
     free(filename);
     return EXIT_FAILURE;
