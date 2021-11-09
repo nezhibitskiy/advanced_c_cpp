@@ -1,0 +1,3 @@
+add_subdirectory(file_reader)
+add_subdirectory(searcher)
+add_subdirectory(file_word_searcher)
