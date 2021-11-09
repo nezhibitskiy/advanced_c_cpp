@@ -62,7 +62,7 @@ jobs:
         run: mkdir thr_build && cd thr_build && cmake -Dthread=ON -Dparallel=OFF .. && make && cmake -Dthread=ON -Dparallel=ON .. && make
 
       - name: run unit tests
-        run: mkdir unit_tests && cd unit_tests && cmake .. && make && ./tests/unit/file_reader/file_reader_test && ./tests/unit/searcher/searcher_test && ./tests/unit/file_reader/file_word_searcher/file_word_searcher_sync_test && ./tests/unit/file_reader/file_word_searcher/file_word_searcher_async_test && lcov -t "project_coverage" -o coverage.txt -c -d ./ && bash <(curl -s https://codecov.io/bash)
+        run: mkdir unit_tests && cd unit_tests && cmake .. && make && cd tests/unit/file_reader && ./file_reader_test && cd ../searcher && ./searcher_test && cd ../file_word_searcher && ./file_word_searcher_sync_test && ./file_word_searcher_async_test && cd ../../../ && lcov -t "project" -o coverage.txt -c -d ./ && bash <(curl -s https://codecov.io/bash)
 
       - name: install fbinfer
         run: VERSION=1.1.0; curl -sSL "https://github.com/facebook/infer/releases/download/v$VERSION/infer-linux64-v$VERSION.tar.xz" | sudo tar -C /opt -xJ && sudo ln -s "/opt/infer-linux64-v$VERSION/bin/infer" /usr/local/bin/infer
