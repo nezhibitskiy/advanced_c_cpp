@@ -28,11 +28,13 @@ char *read_file_to_mem(const char *filepath, size_t *length_buf) {
 
   *length_buf = get_file_length(file);
   if (*length_buf == 0) {
+    fclose(file);
     return NULL;
   }
 
   char *data = malloc(sizeof(char) * *length_buf);
   if (!data) {
+    fclose(file);
     return NULL;
   }
 
