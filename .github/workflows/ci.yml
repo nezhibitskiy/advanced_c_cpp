@@ -16,9 +16,6 @@ jobs:
       - name: Install lcov
         run: sudo apt install lcov
 
-      - name: Build
-        run: mkdir build && cd build && cmake .. && make && cd ..
-
       - name: cppcheck install
         run: sudo apt update && sudo apt install cppcheck
 
@@ -45,6 +42,9 @@ jobs:
 
       - name: install scan-build
         run: sudo apt install clang-tools
+
+      - name: Build
+        run: mkdir build && cd build && cmake .. && make && cd ..
 
       - name: stress tests
         run: bash tests/stress_tests.sh
