@@ -28,17 +28,17 @@ jobs:
 #      - name: cpplint check
 #        run: cpplint --extensions=c,h --filter=-runtime/references,-legal/copyright,-build/include_subdir,-whitespace/line_length,-readability/casting src/file_reader/* src/file_word_searcher/sync/* src/file_word_searcher/async/* src/searcher/* cmd/*
 
-      - name: clang-tidy install
-        run: sudo apt install clang-tidy
-
-      - name: clang-tidy check
-        run: clang-tidy src/file_reader/*.c src/file_word_searcher/sync/*.c src/file_word_searcher/async/*.c src/searcher/*.c cmd/*.c -- -Isrc/file_reader/*.h -Isrc/file_word_searcher/sync/*.h -Isrc/file_word_searcher/async/*.h -Isrc/searcher/*.h -Icmd/*.h -DMY_DEFINES ...
+#      - name: clang-tidy install
+#        run: sudo apt install clang-tidy
+#
+#      - name: clang-tidy check
+#        run: clang-tidy src/file_reader/*.c src/file_word_searcher/sync/*.c src/file_word_searcher/async/*.c src/searcher/*.c cmd/*.c -- -Isrc/file_reader/*.h -Isrc/file_word_searcher/*.h -Isrc/searcher/*.h -Icmd/*.h -DMY_DEFINES ...
 
       - name: clang-format install
         run: sudo apt-get install clang-format
 
       - name: clang-format check
-        run: clang-format -i src/file_reader/*.c src/file_word_searcher/sync/*.c src/file_word_searcher/async/*.c src/searcher/*.c cmd/*.c && clang-format -i src/file_reader/*.h src/file_word_searcher/sync/*.h src/file_word_searcher/async/*.h src/searcher/*.h cmd/*.h && clang-format -i cmd/*.c
+        run: clang-format -i src/file_reader/*.c src/file_word_searcher/sync/*.c src/file_word_searcher/async/*.c src/searcher/*.c cmd/*.c && clang-format -i src/file_reader/*.h src/file_word_searcher/*.h src/searcher/*.h cmd/*.h && clang-format -i cmd/*.c
 
       - name: install scan-build
         run: sudo apt install clang-tools
