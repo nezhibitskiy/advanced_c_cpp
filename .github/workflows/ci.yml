@@ -32,7 +32,7 @@ jobs:
         run: sudo apt install clang-tidy
 
       - name: clang-tidy check
-        run: clang-tidy src/file_reader/* src/file_word_searcher/sync/* src/file_word_searcher/async/* src/searcher/* cmd/* -- -Isrc/file_reader/*.h -Isrc/file_word_searcher/sync/*.h -Isrc/file_word_searcher/async/*.h -Isrc/searcher/*.h -Icmd/*.h -DMY_DEFINES ...
+        run: clang-tidy src/file_reader/*.c src/file_word_searcher/sync/*.c src/file_word_searcher/async/*.c src/searcher/*.c cmd/*.c -- -Isrc/file_reader/*.h -Isrc/file_word_searcher/sync/*.h -Isrc/file_word_searcher/async/*.h -Isrc/searcher/*.h -Icmd/*.h -DMY_DEFINES ...
 
       - name: clang-format install
         run: sudo apt-get install clang-format
