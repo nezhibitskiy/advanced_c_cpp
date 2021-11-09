@@ -47,7 +47,7 @@ jobs:
         run: sudo apt install clang-tools
 
       - name: Build
-        run: mkdir build && cd build && cmake .. && make && cd ..
+        run: mkdir build && cd build && scan-build cmake .. && scan-build make && cd ..
 
       - name: stress tests
         run: bash tests/stress_tests.sh
@@ -63,24 +63,9 @@ jobs:
 
       - name: Thread sanitizer
         run: mkdir thr_build && cd thr_build && cmake -Dthread=ON -Dparallel=OFF .. && make && cmake -Dthread=ON -Dparallel=ON .. && make
-      #    - name: "Unit tests"
-      #      script:
-      #        - mkdir unit_tests
-      #        - cd unit_tests
-      #        - cmake ..
-      #        - make
-      #        - cd tests/unit/file_reader
-      #        - ./file_reader_test
-      #        - cd ../searcher
-      #        - ./searcher_test
-      #        - cd ../file_word_searcher
-      #        - ./file_word_searcher_sync_test
-      #        - ./file_word_searcher_async_test
-      #        - lcov -t "file_word_searcher_async_test" -o coverage.txt -c -d ./
-      #        - lcov -t "file_word_searcher_sync_test" -o coverage.txt -c -d ./
-      #        - bash <(curl -s https://codecov.io/bash)
-#      - name: run unit tests with scan-build
-#        run: mkdir unit_tests && cd unit_tests && scan-build cmake .. && scan-build make 1&& lcov -t "hw-c" -o hw-c.info -c -d . && lcov --remove hw-c.info "/usr/include/*" "./include/*" "/usr/local/*" > coverage.info && genhtml -o report coverage.info
+
+      - name: run unit tests
+        run: mkdir unit_tests && cd unit_tests && cmake .. && make && cd tests/unit/file_reader && ./file_reader_test && cd ../searcher && ./searcher_test && cd ../file_word_searcher && ./file_word_searcher_sync_test && ./file_word_searcher_async_test && lcov -t "file_word_searcher_async_test" -o coverage.txt -c -d ./ && lcov -t "file_word_searcher_sync_test" -o coverage.txt -c -d ./ && bash <(curl -s https://codecov.io/bash)
 
       - name: install fbinfer
         run: VERSION=1.1.0; curl -sSL "https://github.com/facebook/infer/releases/download/v$VERSION/infer-linux64-v$VERSION.tar.xz" | sudo tar -C /opt -xJ && sudo ln -s "/opt/infer-linux64-v$VERSION/bin/infer" /usr/local/bin/infer
@@ -88,13 +73,13 @@ jobs:
       - name: run with fbinfer
         run: mkdir infer_build && cd infer_build && cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1 .. && cd .. && infer run --compilation-database infer_build/compile_commands.json
 
-#      - name: Install Valgrind
-#        run: sudo apt-get update && sudo apt-get install -y valgrind
-#
-#      - name: Valgrind check
-#        run: mkdir valgrind_check && cd valgrind_check && cmake .. && make && valgrind --tool=memcheck --leak-check=full --show-leak-kinds=all -s -q make test
-#      - name: coverage
-#        uses: actions/upload-artifact@v2
-#        with:
-#          name: coverage
-#          path: test_build/report
+      - name: Install Valgrind
+        run: sudo apt-get update && sudo apt-get install -y valgrind
+
+      - name: Valgrind check
+        run: mkdir valgrind_check && cd valgrind_check && cmake .. && make && cd tests/unit/file_word_searcher && valgrind --tool=memcheck --leak-check=full ./file_word_searcher_sync_test && valgrind --tool=memcheck --leak-check=full ./file_word_searcher_async_test
+      - name: coverage
+        uses: actions/upload-artifact@v2
+        with:
+          name: coverage
+          path: test_build/report
