@@ -34,11 +34,11 @@ jobs:
 #      - name: clang-tidy check
 #        run: clang-tidy src/file_reader/*.c src/file_word_searcher/sync/*.c src/file_word_searcher/async/*.c src/searcher/*.c cmd/*.c -- -Isrc/file_reader/*.h -Isrc/file_word_searcher/*.h -Isrc/searcher/*.h -Icmd/*.h -DMY_DEFINES ...
 
-      - name: clang-format install
-        run: sudo apt-get install clang-format
-
-      - name: clang-format check
-        run: clang-format -i src/file_reader/*.c src/file_word_searcher/sync/*.c src/file_word_searcher/async/*.c src/searcher/*.c cmd/*.c && clang-format -i src/file_reader/*.h src/file_word_searcher/*.h src/searcher/*.h cmd/*.h && clang-format -i cmd/*.c
+#      - name: clang-format install
+#        run: sudo apt-get install clang-format
+#
+#      - name: clang-format check
+#        run: clang-format -i src/file_reader/*.c src/file_word_searcher/sync/*.c src/file_word_searcher/async/*.c src/searcher/*.c cmd/*.c && clang-format -i src/file_reader/*.h src/file_word_searcher/*.h src/searcher/*.h cmd/*.h && clang-format -i cmd/*.c
 
       - name: install scan-build
         run: sudo apt install clang-tools
