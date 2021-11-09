@@ -28,14 +28,11 @@ jobs:
       - name: clang-tidy install
         run: sudo apt install clang-tidy
 
-#      - name: clang-tidy check
-#        run: clang-tidy src/file_reader/*.c src/file_word_searcher/sync/*.c src/file_word_searcher/async/*.c src/searcher/*.c cmd/*.c -- -Isrc/file_reader/*.h -Isrc/file_word_searcher/*.h -Isrc/searcher/*.h -Icmd/*.h -DMY_DEFINES ...
-
       - name: cpplint install
         run: sudo apt-get install python3-pip && sudo pip3 install cpplint
 
       - name: cpplint check
-        run: cpplint --extensions=c,h --filter=-runtime/references,-legal/copyright,-build/include_subdir,-whitespace/line_length,-readability/casting src/file_reader/* src/file_word_searcher/sync/* src/file_word_searcher/async/* src/searcher/* cmd/*
+        run: cpplint --extensions=c,h --filter=-runtime/references,-legal/copyright,-whitespace,-build/include_subdir,-whitespace/line_length,-readability/casting src/file_reader/* src/file_word_searcher/sync/* src/file_word_searcher/async/* src/searcher/* cmd/*
 
       - name: clang-format install
         run: sudo apt-get install clang-format
