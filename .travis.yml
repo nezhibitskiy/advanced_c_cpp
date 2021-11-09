@@ -78,7 +78,7 @@ jobs:
         - clang-format -output-replacements-xml cmd/*.c | grep -c "<replacement "
     - name: "Fbinfer check"
       script:
-        - curl -sSL "https://github.com/facebook/infer/releases/download/v1.0.0/infer-linux64-v$VERSION.tar.xz"
+        - curl -sSL "https://github.com/facebook/infer/releases/download/v1.0.0/infer-linux64-v1.0.0.tar.xz"
         - sudo tar -f -C /opt -xJ
         - sudo ln -s "/opt/infer-linux64-v1.0.0/bin/infer" /usr/local/bin/infer
         - mkdir infer_build
