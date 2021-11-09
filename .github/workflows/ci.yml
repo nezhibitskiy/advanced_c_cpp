@@ -1,0 +1,97 @@
+name: build
+on: [push]
+
+jobs:
+  build:
+
+    name: ubuntu
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install GTest
+        run: sudo apt-get install libgtest-dev -y
+
+      - name: Install lcov
+        run: sudo apt install lcov
+
+      - name: Build
+        run: mkdir build && cd build && cmake .. && make && cd ..
+
+      - name: cppcheck install
+        run: sudo apt update && sudo apt install cppcheck
+
+      - name: cppcheck check
+        run: cppcheck -q --enable=all -I src/file_word_searcher -I src/file_reader -I src/searcher --suppress=missingIncludeSystem ./cmd
+
+      - name: clang install
+        run: sudo apt-get install clang
+
+      - name: cpplint check
+        run: cpplint --extensions=c,h --filter=-runtime/references,-legal/copyright,-build/include_subdir,-whitespace/line_length,-readability/casting src/file_reader/* src/file_word_searcher/sync/* src/file_word_searcher/async/* src/searcher/* cmd/*
+
+      - name: clang-tidy install
+        run: sudo apt install clang-tidy
+
+      - name: clang-tidy check
+        run: clang-tidy src/file_reader/* src/file_word_searcher/sync/* src/file_word_searcher/async/* src/searcher/* cmd/* -- -Isrc/file_reader/*.h -Isrc/file_word_searcher/sync/*.h -Isrc/file_word_searcher/async/*.h -Isrc/searcher/*.h -Icmd/*.h -DMY_DEFINES ...
+
+      - name: clang-format install
+        run: sudo apt-get install clang-format
+
+      - name: clang-format check
+        run: clang-format -i src/file_reader/*.c src/file_word_searcher/sync/*.c src/file_word_searcher/async/*.c src/searcher/*.c cmd/*.c && clang-format -i src/file_reader/*.h src/file_word_searcher/sync/*.h src/file_word_searcher/async/*.h src/searcher/*.h cmd/*.h && clang-format -i cmd/*.c
+
+      - name: install scan-build
+        run: sudo apt install clang-tools
+
+      - name: stress tests
+        run: bash tests/stress_tests.sh
+
+      - name: Address sanitizer
+        run: mkdir add_build && cd add_build && cmake -Daddress=ON -Dparallel=OFF .. && make && cmake -Daddress=ON -Dparallel=ON .. && make
+
+      - name: Memory sanitizer
+        run: mkdir add_build && cd add_build && cmake -Dmemory=ON -Dparallel=OFF .. && make && cmake -Dmemory=ON -Dparallel=ON .. && make
+
+      - name: Undefined sanitizer
+        run: mkdir add_build && cd add_build && cmake -Dundefined=ON -Dparallel=OFF .. && make && cmake -Dundefined=ON -Dparallel=ON .. && make
+
+      - name: Thread sanitizer
+        run: mkdir add_build && cd add_build && cmake -Dthread=ON -Dparallel=OFF .. && make && cmake -Dthread=ON -Dparallel=ON .. && make
+      #    - name: "Unit tests"
+      #      script:
+      #        - mkdir unit_tests
+      #        - cd unit_tests
+      #        - cmake ..
+      #        - make
+      #        - cd tests/unit/file_reader
+      #        - ./file_reader_test
+      #        - cd ../searcher
+      #        - ./searcher_test
+      #        - cd ../file_word_searcher
+      #        - ./file_word_searcher_sync_test
+      #        - ./file_word_searcher_async_test
+      #        - lcov -t "file_word_searcher_async_test" -o coverage.txt -c -d ./
+      #        - lcov -t "file_word_searcher_sync_test" -o coverage.txt -c -d ./
+      #        - bash <(curl -s https://codecov.io/bash)
+#      - name: run unit tests with scan-build
+#        run: mkdir unit_tests && cd unit_tests && scan-build cmake .. && scan-build make 1&& lcov -t "hw-c" -o hw-c.info -c -d . && lcov --remove hw-c.info "/usr/include/*" "./include/*" "/usr/local/*" > coverage.info && genhtml -o report coverage.info
+
+      - name: install fbinfer
+        run: VERSION=1.1.0; curl -sSL "https://github.com/facebook/infer/releases/download/v$VERSION/infer-linux64-v$VERSION.tar.xz" | sudo tar -C /opt -xJ && sudo ln -s "/opt/infer-linux64-v$VERSION/bin/infer" /usr/local/bin/infer
+
+      - name: run with fbinfer
+        run: mkdir infer_build && cd infer_build && cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1 .. && cd .. && infer run --compilation-database infer_build/compile_commands.json
+#
+#      - name: Install Valgrind
+#        run: sudo apt-get update && sudo apt-get install -y valgrind
+#
+#      - name: Valgrind check
+#        run: mkdir valgrind_check && cd valgrind_check && cmake .. && make && valgrind --tool=memcheck --leak-check=full --show-leak-kinds=all -s -q make test
+#      - name: coverage
+#        uses: actions/upload-artifact@v2
+#        with:
+#          name: coverage
+#          path: test_build/report
