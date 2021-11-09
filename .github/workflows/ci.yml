@@ -47,7 +47,7 @@ jobs:
         run: mkdir build && cd build && scan-build cmake .. && scan-build make && cd ..
 
       - name: stress tests
-        run: cd tests && bash stress_tests.sh
+        run: cd tests && bash stress_tests.sh && cd ..
 
       - name: Address sanitizer
         run: mkdir add_build && cd add_build && cmake -Daddress=ON -Dparallel=OFF .. && make && cmake -Daddress=ON -Dparallel=ON .. && make
