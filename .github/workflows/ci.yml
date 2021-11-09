@@ -44,7 +44,7 @@ jobs:
         run: sudo apt install clang-tools
 
       - name: clang-format check
-        run: clang-format -i src/file_reader/*.c && clang-format -i src/file_word_searcher/sync/*.c && clang-format -i src/file_word_searcher/async/*.c && clang-format -i src/searcher/*.c && clang-format -i cmd/*.c && clang-format -i src/file_reader/*.h && clang-format -i src/file_word_searcher/*.h && clang-format -i src/searcher/*.h && clang-format -i cmd/*.h && clang-format -i cmd/*.c
+        run: clang-format --dry-run src/file_reader/*.c src/file_word_searcher/sync/*.c src/file_word_searcher/async/*.c src/searcher/*.c cmd/*.c && clang-format --dry-run src/file_reader/*.h src/file_word_searcher/*.h src/searcher/*.h cmd/*.h && clang-format --dry-run cmd/*.c
 
       - name: Build
         run: mkdir build && cd build && scan-build cmake .. && scan-build make && cd ..
