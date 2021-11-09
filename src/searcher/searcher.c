@@ -6,6 +6,8 @@
 
 #include "searcher.h"
 
+#define SIZE_INCREMENT 16
+
 char *search_long_word(const char *data, size_t data_size, size_t *max_len) {
   if (data == NULL || data_size == 0 || max_len == NULL) {
     return NULL;
@@ -39,7 +41,7 @@ char *search_long_word(const char *data, size_t data_size, size_t *max_len) {
       if (len == size) {
         char *tmp_str;
 
-        tmp_str = realloc(str, sizeof(*str) * (size += 16));
+        tmp_str = realloc(str, sizeof(*str) * (size += SIZE_INCREMENT));
         if (!tmp_str) {
           free(str);
           if (i > 0) {
