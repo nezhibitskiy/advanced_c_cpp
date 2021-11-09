@@ -25,8 +25,8 @@ jobs:
       - name: clang install
         run: sudo apt-get install clang
 
-      - name: cpplint check
-        run: cpplint --extensions=c,h --filter=-runtime/references,-legal/copyright,-build/include_subdir,-whitespace/line_length,-readability/casting src/file_reader/* src/file_word_searcher/sync/* src/file_word_searcher/async/* src/searcher/* cmd/*
+#      - name: cpplint check
+#        run: cpplint --extensions=c,h --filter=-runtime/references,-legal/copyright,-build/include_subdir,-whitespace/line_length,-readability/casting src/file_reader/* src/file_word_searcher/sync/* src/file_word_searcher/async/* src/searcher/* cmd/*
 
       - name: clang-tidy install
         run: sudo apt install clang-tidy
