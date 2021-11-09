@@ -11,4 +11,5 @@ target_link_libraries(${PROJECT_NAME}
 
 add_test(NAME ${PROJECT_NAME}
         COMMAND ${PROJECT_NAME})
+
 file(COPY texts/test.txt DESTINATION texts)

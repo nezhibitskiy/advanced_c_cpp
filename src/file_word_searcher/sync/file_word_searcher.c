@@ -1,7 +1,8 @@
 //
 // Created by ilyas on 04.11.2021.
 //
-#include "../file_word_searcher.h"
+
+#include "file_word_searcher.h"
 
 char *file_long_word_search(const char *filename, size_t *word_length) {
   size_t data_length = 0;

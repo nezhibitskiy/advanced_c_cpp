@@ -2,9 +2,11 @@
 // Created by ilyas on 04.11.2021.
 //
 
-#include "../file_word_searcher.h"
 #include <pthread.h>
+#include <string.h>
 #include <zconf.h>
+
+#include "file_word_searcher.h"
 
 typedef struct pthread_args {
   const char *data;
@@ -93,10 +95,19 @@ static size_t pthreads_create(pthread_t *threads, pthread_args_t *threads_args,
 
 static char *pthreads_join(pthread_t *threads, pthread_args_t *threads_args,
                            size_t success_pthread, size_t *word_max_len) {
+  if (threads == NULL || threads_args == NULL || success_pthread == 0 ||
+      word_max_len == NULL) {
+    return NULL;
+  }
+
   char *longest_word = NULL;
   *word_max_len = 0;
 
   void **pthreads_res = malloc(sizeof(void *) * success_pthread);
+  if (pthreads_res == NULL) {
+    return NULL;
+  }
+
   size_t joined_pthreads = 0;
   while (joined_pthreads != success_pthread) {
     joined_pthreads = 0;
@@ -109,7 +120,12 @@ static char *pthreads_join(pthread_t *threads, pthread_args_t *threads_args,
   for (size_t i = 0; i < success_pthread; i++) {
     if (threads_args[i].word_len > *word_max_len) {
       *word_max_len = threads_args[i].word_len;
-      longest_word = realloc(longest_word, sizeof(char) * *word_max_len);
+      char *new_word = realloc(longest_word, sizeof(char) * *word_max_len);
+      if (new_word == NULL) {
+        free(pthreads_res);
+        return NULL;
+      }
+      longest_word = new_word;
       memcpy(longest_word, (char *)pthreads_res[i],
              *word_max_len * sizeof(char));
     }

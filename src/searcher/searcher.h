@@ -6,7 +6,6 @@
 #define SRC_SEARCHER_SEARCHER_H_
 
 #include <stdlib.h>
-#include <string.h>
 
 char *search_long_word(const char *data, size_t data_size, size_t *max_len);
 

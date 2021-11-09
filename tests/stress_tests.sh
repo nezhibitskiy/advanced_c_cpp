@@ -1,9 +1,9 @@
 #!/bin/bash
-if ! [ -d "stress_tests" ]
+if ! [ -d "../stress_tests" ]
 then
 mkdir stress_tests
 fi
-cd stress_tests
+cd ../stress_tests
 cmake ..
 make
 if ! [ -d "tests/stress_tests/texts" ]
@@ -12,7 +12,7 @@ mkdir tests/stress_tests/texts
 fi
 cd tests/utils/
 echo "Started file generation"
-./file_gen
+./file_gen 100000000 221 ./../stress_tests/texts/text.txt
 echo "Ended file generation"
 cd ../stress_tests/async
 async_output=$(./stress_async_test)

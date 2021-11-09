@@ -2,8 +2,9 @@
 // Created by ilyas on 01.11.2021.
 //
 
+#include <string.h>
+
 #include "searcher.h"
-#include <stdio.h>
 
 char *search_long_word(const char *data, size_t data_size, size_t *max_len) {
   if (data == NULL || data_size == 0 || max_len == NULL) {
