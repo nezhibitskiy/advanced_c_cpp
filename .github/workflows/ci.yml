@@ -53,13 +53,13 @@ jobs:
         run: mkdir add_build && cd add_build && cmake -Daddress=ON -Dparallel=OFF .. && make && cmake -Daddress=ON -Dparallel=ON .. && make
 
       - name: Memory sanitizer
-        run: mkdir add_build && cd add_build && cmake -Dmemory=ON -Dparallel=OFF .. && make && cmake -Dmemory=ON -Dparallel=ON .. && make
+        run: mkdir mem_build && cd mem_build && cmake -Dmemory=ON -Dparallel=OFF .. && make && cmake -Dmemory=ON -Dparallel=ON .. && make
 
       - name: Undefined sanitizer
-        run: mkdir add_build && cd add_build && cmake -Dundefined=ON -Dparallel=OFF .. && make && cmake -Dundefined=ON -Dparallel=ON .. && make
+        run: mkdir und_build && cd und_build && cmake -Dundefined=ON -Dparallel=OFF .. && make && cmake -Dundefined=ON -Dparallel=ON .. && make
 
       - name: Thread sanitizer
-        run: mkdir add_build && cd add_build && cmake -Dthread=ON -Dparallel=OFF .. && make && cmake -Dthread=ON -Dparallel=ON .. && make
+        run: mkdir thr_build && cd thr_build && cmake -Dthread=ON -Dparallel=OFF .. && make && cmake -Dthread=ON -Dparallel=ON .. && make
       #    - name: "Unit tests"
       #      script:
       #        - mkdir unit_tests
