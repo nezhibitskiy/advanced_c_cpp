@@ -62,7 +62,7 @@ jobs:
         run: mkdir thr_build && cd thr_build && cmake -Dthread=ON -Dparallel=OFF .. && make && cmake -Dthread=ON -Dparallel=ON .. && make
 
       - name: run unit tests
-        run: mkdir unit_tests && cd unit_tests && cmake .. && make && cd tests/unit/file_reader && ./file_reader_test && cd ../searcher && ./searcher_test && cd ../file_word_searcher && ./file_word_searcher_sync_test && ./file_word_searcher_async_test && lcov -t "file_word_searcher_async_test" -o coverage.txt -c -d ./ && lcov -t "file_word_searcher_sync_test" -o coverage.txt -c -d ./ && lcov --remove coverage.txt -o coverage.txt \
+        run: mkdir unit_tests && cd unit_tests && cmake .. && make && cd tests/unit/file_reader && ./file_reader_test && lcov -t "file_reader_test" -o coverage.txt && cd ../searcher && ./searcher_test && lcov -t "searcher" -o coverage.txt && cd ../file_word_searcher && ./file_word_searcher_sync_test && ./file_word_searcher_async_test && lcov -t "file_word_searcher_async_test" -o coverage.txt -c -d ./ && lcov -t "file_word_searcher_sync_test" -o coverage.txt -c -d ./ && lcov --remove coverage.txt -o coverage.txt \
           './tests/utils/*' \
           './tests/stress_tests/*' \
           './cmd/*' \
