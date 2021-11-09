@@ -1,9 +1,9 @@
 #!/bin/bash
-if ! [ -d "../stress_tests" ]
+if ! [ -d "../build" ]
 then
-mkdir stress_tests
+mkdir ../build
 fi
-cd ../stress_tests
+cd ../build
 cmake ..
 make
 if ! [ -d "tests/stress_tests/texts" ]
